@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>wink-pos-tagger - Wink JS - Summary</title>
+    
+    
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47082559-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47082559-2');
+</script>
+<script src="https://use.typekit.net/cwc1qce.js"></script>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'winkjs/Lobby'
+  };
+  window.onload = function () {
+      document.querySelector('.gitter-open-chat-button').innerText = 'Need help?'
+      document.querySelector('.gitter-open-chat-button').style.display = 'block';
+  }
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+<style media="screen">
+body {
+  font-family: 'ff-tisa-sans-web-pro', serif;
+}
+.navbar {
+  border-top: 4px solid #6C307D;
+  box-sizing: border-box;
+  height: 64px;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-header {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.navbar-header a img {
+  height: 24px;
+}
+
+.navbar a {
+  color: #fff;
+  line-height: 60px;
+  margin-left: 0;
+}
+
+.navbar a.navbar-brand {
+  margin-left: 20px;
+  display: block;
+  min-width: 40px;
+}
+
+.navbar-right {
+  margin: 0;
+  line-height: 50px;
+  list-style: none;
+}
+
+.navbar-right li {
+  float: left;
+  margin-right: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+/* Override docdash */
+#main {
+  margin-top: 30px;
+}
+
+/* Gitter */
+.gitter-open-chat-button {
+  background: #6C307D;
+  display: none;
+}
+
+.gitter-open-chat-button:hover {
+  opacity: 0.8;
+  background: #6C307D;
+}
+
+.gitter-chat-embed {
+  top: 64px;
+}
+</style>
+
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', function () {
+  if ( window.location.hash ) {
+    openMember();
+    window.setTimeout( function () {
+      window.scrollTo( 0, (window.pageYOffset || document.documentElement.scrollTop) - 72);
+    }, 0)
+  }
+
+  document.getElementById('toc-button').addEventListener('click', function () {
+      if (document.getElementById('side-nav').className === '') {
+        document.getElementById('side-nav').className = 'is-open';
+        document.getElementById('toc-button-img').setAttribute('src','./close.svg');
+      } else {
+        document.getElementById('side-nav').className = '';
+        document.getElementById('toc-button-img').setAttribute('src','./menu.svg');
+      }
+  })
+});
+
+window.addEventListener( 'hashchange', function (e) {
+  e.stopPropagation();
+  openMember();
+} );
+
+function openMember() {
+  var id = window.location.hash.substr(1),
+  toggler = document.getElementById( id ),
+  offset = toggler.getBoundingClientRect().top,
+  y = window.scrollY + offset - 62 - 10;
+  window.scrollTo(0, y);
+}
+</script>
+
+<header>
+  <div class="navbar">
+      <div class="navbar-header">
+        <a href="https://winkjs.org/" title="wink" class="navbar-brand">
+          <img src="https://winkjs.org/images/logo.svg">
+          <span>wink</span>
+        </a>
+      </div>
+      <div class="sausage-links">
+        <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="main-nav">
+          <li><a href="https://winkjs.org/packages.html" class="">Packages</a></li>
+          <li><a href="https://winkjs.org/showcase.html" class="">Showcase</a></li>
+          <li><a href="https://winkjs.org/blog.html" class="">Blog</a></li>
+          <li><a href="http://github.com/winkjs">Github</a></li>
+          <li><a href="https://winkjs.org/about.html" class="">About</a></li>
+        </div>
+      </nav>
+    </div>
+</header>
+
+<div id="toc-button">
+  <img src="./menu.svg" alt="" id="toc-button-img">
+</div>
+
+
+<div class="content-container">
+  <div class="main-container">
+    <div id="main">
+        
+
+        
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme">
+        <article><h1>wink-pos-tagger</h1>
+<p>English Part-of-speech (POS) tagger</p>
+<h3><a href="https://travis-ci.org/winkjs/wink-pos-tagger"><img src="https://api.travis-ci.org/winkjs/wink-pos-tagger.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/winkjs/wink-pos-tagger?branch=master"><img src="https://coveralls.io/repos/github/winkjs/wink-pos-tagger/badge.svg?branch=master" alt="Coverage Status"></a> <a href="http://inch-ci.org/github/winkjs/wink-pos-tagger"><img src="http://inch-ci.org/github/winkjs/wink-pos-tagger.svg?branch=master" alt="Inline docs"></a> <a href="https://david-dm.org/winkjs/wink-pos-tagger"><img src="https://david-dm.org/winkjs/wink-pos-tagger/status.svg" alt="dependencies Status"></a> <a href="https://david-dm.org/winkjs/wink-pos-tagger?type=dev"><img src="https://david-dm.org/winkjs/wink-pos-tagger/dev-status.svg" alt="devDependencies Status"></a> <a href="https://gitter.im/winkjs/Lobby"><img src="https://img.shields.io/gitter/room/nwjs/nw.js.svg" alt="Gitter"></a></h3>
+<p><a href="http://winkjs.org/"><img align="right" src="https://decisively.github.io/wink-logos/logo-title.png" width="100px" ></a></p>
+<p>Perform part-of-speech tagging of english sentences using <strong><code>wink-pos-tagger</code></strong>. It is based on transformation based learning (TBL) approach pioneered by Eric Brill.</p>
+<p>Optimized for performance, it <em>pos-tags</em> and <em>lemmatizes</em> over <strong>525,000 tokens per second</strong> with an accuracy of <strong>93.2%</strong> on the standard WSJ22-24 test set. This was <a href="https://github.com/bestiejs/benchmark.js">benchmarked</a> on 2.2 GHz Intel Core i7 machine with 16GB RAM using its <code>tagRawTokens()</code> API.</p>
+<h3>Installation</h3>
+<p>Use <a href="https://www.npmjs.com/package/wink-pos-tagger">npm</a> to install:</p>
+<pre><code>npm install wink-pos-tagger --save
+</code></pre>
+<h3>Getting Started</h3>
+<p>The code below illustrates the steps required to pos tag a sentence:</p>
+<pre class="prettyprint source lang-javascript"><code>// Load wink-pos-tagger.
+var posTagger = require( 'wink-pos-tagger' );
+
+// Create an instance of the pos tagger.
+var tagger = posTagger();
+
+// Tag the sentence using the tag sentence api.
+tagger.tagSentence( 'He is trying to fish for fish in the lake.' );
+// -> [ { value: 'He', tag: 'word', normal: 'he', pos: 'PRP' },
+//      { value: 'is', tag: 'word', normal: 'is', pos: 'VBZ', lemma: 'be' },
+//      { value: 'trying', tag: 'word', normal: 'trying', pos: 'VBG', lemma: 'try' },
+//      { value: 'to', tag: 'word', normal: 'to', pos: 'TO' },
+//      { value: 'fish', tag: 'word', normal: 'fish', pos: 'VB', lemma: 'fish' },
+//      { value: 'for', tag: 'word', normal: 'for', pos: 'IN' },
+//      { value: 'fish', tag: 'word', normal: 'fish', pos: 'NN', lemma: 'fish' },
+//      { value: 'in', tag: 'word', normal: 'in', pos: 'IN' },
+//      { value: 'the', tag: 'word', normal: 'the', pos: 'DT' },
+//      { value: 'lake', tag: 'word', normal: 'lake', pos: 'NN', lemma: 'lake' },
+//      { value: '.', tag: 'punctuation', normal: '.', pos: '.' } ]
+</code></pre>
+<p>Notice the way instances of the word &quot;fish&quot; have been tagged as <strong>verb</strong> and <strong>noun</strong>.</p>
+<h3>Documentation</h3>
+<p>Check out the <a href="http://winkjs.org/wink-pos-tagger/">pos tagger API documentation</a> to learn more.</p>
+<h3>Need Help?</h3>
+<p>If you spot a bug and the same has not yet been reported, raise a new <a href="https://github.com/winkjs/wink-pos-tagger/issues">issue</a> or consider fixing it and sending a pull request.</p>
+<h3>About wink</h3>
+<p><a href="http://winkjs.org/">Wink</a> is a family of open source packages for <strong>Statistical Analysis</strong>, <strong>Natural Language Processing</strong> and <strong>Machine Learning</strong> in NodeJS. The code is <strong>thoroughly documented</strong> for easy human comprehension and has a <strong>test coverage of ~100%</strong> for reliability to build production grade solutions.</p>
+<h3>Copyright &amp; License</h3>
+<p><strong>wink-pos-tagger</strong> is copyright 2017-19 <a href="http://graype.in/">GRAYPE Systems Private Limited</a>.</p>
+<p>It is licensed under the terms of the MIT License.</p></article>
+    </section>
+
+
+
+
+
+
+
+        
+    </div>
+  </div>
+
+  <nav  id="side-nav">
+      
+      <h2><a href="index.html">Summary</a></h2><h2><a href="https://github.com/winkjs/wink-pos-tagger" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="Tagger.html">Tagger</a><ul class='methods'><li data-type='method'><a href="Tagger.html#defineConfig">defineConfig</a></li><li data-type='method'><a href="Tagger.html#tag">tag</a></li><li data-type='method'><a href="Tagger.html#tagRawTokens">tagRawTokens</a></li><li data-type='method'><a href="Tagger.html#tagSentence">tagSentence</a></li><li data-type='method'><a href="Tagger.html#updateLexicon">updateLexicon</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#posTagger">posTagger</a></li></ul>
+  </nav>
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Aug 12 2019 09:56:01 GMT+0530 (IST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+<script src="https://embed.runkit.com"></script>
+<script type="text/javascript">
+  var els = document.getElementsByClassName("runkit");
+
+  Array.prototype.forEach.call(els, function(el) {
+    // Do stuff here
+    var source = el.innerHTML;
+    el.innerHTML = '';
+    var n = RunKit.createNotebook( {
+      element: el,
+      source: source
+    } );
+  });
+</script>
+</body>
+</html>

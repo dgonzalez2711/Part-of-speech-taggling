@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>wink-pos-tagger - Wink JS - wink-pos-tagger.js</title>
+    
+    
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47082559-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47082559-2');
+</script>
+<script src="https://use.typekit.net/cwc1qce.js"></script>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'winkjs/Lobby'
+  };
+  window.onload = function () {
+      document.querySelector('.gitter-open-chat-button').innerText = 'Need help?'
+      document.querySelector('.gitter-open-chat-button').style.display = 'block';
+  }
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+<style media="screen">
+body {
+  font-family: 'ff-tisa-sans-web-pro', serif;
+}
+.navbar {
+  border-top: 4px solid #6C307D;
+  box-sizing: border-box;
+  height: 64px;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-header {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.navbar-header a img {
+  height: 24px;
+}
+
+.navbar a {
+  color: #fff;
+  line-height: 60px;
+  margin-left: 0;
+}
+
+.navbar a.navbar-brand {
+  margin-left: 20px;
+  display: block;
+  min-width: 40px;
+}
+
+.navbar-right {
+  margin: 0;
+  line-height: 50px;
+  list-style: none;
+}
+
+.navbar-right li {
+  float: left;
+  margin-right: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+/* Override docdash */
+#main {
+  margin-top: 30px;
+}
+
+/* Gitter */
+.gitter-open-chat-button {
+  background: #6C307D;
+  display: none;
+}
+
+.gitter-open-chat-button:hover {
+  opacity: 0.8;
+  background: #6C307D;
+}
+
+.gitter-chat-embed {
+  top: 64px;
+}
+</style>
+
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', function () {
+  if ( window.location.hash ) {
+    openMember();
+    window.setTimeout( function () {
+      window.scrollTo( 0, (window.pageYOffset || document.documentElement.scrollTop) - 72);
+    }, 0)
+  }
+
+  document.getElementById('toc-button').addEventListener('click', function () {
+      if (document.getElementById('side-nav').className === '') {
+        document.getElementById('side-nav').className = 'is-open';
+        document.getElementById('toc-button-img').setAttribute('src','./close.svg');
+      } else {
+        document.getElementById('side-nav').className = '';
+        document.getElementById('toc-button-img').setAttribute('src','./menu.svg');
+      }
+  })
+});
+
+window.addEventListener( 'hashchange', function (e) {
+  e.stopPropagation();
+  openMember();
+} );
+
+function openMember() {
+  var id = window.location.hash.substr(1),
+  toggler = document.getElementById( id ),
+  offset = toggler.getBoundingClientRect().top,
+  y = window.scrollY + offset - 62 - 10;
+  window.scrollTo(0, y);
+}
+</script>
+
+<header>
+  <div class="navbar">
+      <div class="navbar-header">
+        <a href="https://winkjs.org/" title="wink" class="navbar-brand">
+          <img src="https://winkjs.org/images/logo.svg">
+          <span>wink</span>
+        </a>
+      </div>
+      <div class="sausage-links">
+        <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="main-nav">
+          <li><a href="https://winkjs.org/packages.html" class="">Packages</a></li>
+          <li><a href="https://winkjs.org/showcase.html" class="">Showcase</a></li>
+          <li><a href="https://winkjs.org/blog.html" class="">Blog</a></li>
+          <li><a href="http://github.com/winkjs">Github</a></li>
+          <li><a href="https://winkjs.org/about.html" class="">About</a></li>
+        </div>
+      </nav>
+    </div>
+</header>
+
+<div id="toc-button">
+  <img src="./menu.svg" alt="" id="toc-button-img">
+</div>
+
+
+<div class="content-container">
+  <div class="main-container">
+    <div id="main">
+        
+        <h1 class="page-title">wink-pos-tagger.js</h1>
+        
+
+        
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//     wink-pos-tagger
+//     English Part-of-speech (POS) tagger
+//
+//     Copyright (C) 2017-19  GRAYPE Systems Private Limited
+//
+//     This file is part of “wink-pos-tagger”.
+//
+//     Permission is hereby granted, free of charge, to any person obtaining a
+//     copy of this software and associated documentation files (the "Software"),
+//     to deal in the Software without restriction, including without limitation
+//     the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//     and/or sell copies of the Software, and to permit persons to whom the
+//     Software is furnished to do so, subject to the following conditions:
+//
+//     The above copyright notice and this permission notice shall be included
+//     in all copies or substantial portions of the Software.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+//     OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//     THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//     DEALINGS IN THE SOFTWARE.
+
+//
+var helpers = require( 'wink-helpers' );
+var winkLexicon = require( 'wink-lexicon/src/lexicon.js' );
+var unigramPOSTagger = require( './unigram-tagger.js' );
+var applyContextRules = require( './rules-engine.js' );
+var wl = require( 'wink-lemmatizer' );
+var lemmatizeVBX = wl.lemmatizeVerb;
+var lemmatizeNNX = wl.lemmatizeNoun;
+var lemmatizeJJX = wl.lemmatizeAdjective;
+// Load tokenizer, instanciate and get tokenize method; use default config.
+var tokenize = require( 'wink-tokenizer' )().tokenize;
+// Extract string normalization function from `wink-helpers`.
+var normalize = helpers.string.normalize;
+
+var lemmaExceptions = Object.create( null );
+lemmaExceptions.ai = 'be';
+lemmaExceptions.ca = 'can';
+lemmaExceptions.sha = 'shall';
+lemmaExceptions[ '\'ll' ] = lemmaExceptions.wo = 'will';
+lemmaExceptions[ '\'ve' ] = 'have';
+lemmaExceptions[ '\'m' ] = 'am';
+lemmaExceptions[ '\'re' ] = 'be';
+lemmaExceptions[ 'n\'t' ] = 'not';
+lemmaExceptions[ '\'d' ] = 'would';
+// Needed for simple NNP transformation rule.
+const capA = 'A';
+const capZ = 'Z';
+// Required in raw tokens tagging
+const rgxNumber = /^\d+\/\d+|\d(?:[\.\,\-\/]?\d)*(?:\.\d+)?$/;
+const rgxPunctuation = /^[\’\'\‘\’\`\“\”\"\[\]\(\)\{\}\…\,\.\!\;\?\-\:]+$/;
+// Used in tagging years.
+const year = Object.create( null );
+year[ '1990s' ] = 'CD';
+year[ '1980s' ] = 'CD';
+year[ '1970s' ] = 'CD';
+year[ '1960s' ] = 'CD';
+year[ '1950s' ] = 'CD';
+year[ '1940s' ] = 'CD';
+year[ '1930s' ] = 'CD';
+year[ '1910s' ] = 'CD';
+year[ 'mid-1990s' ] = 'CD';
+year[ 'mid-1980s' ] = 'CD';
+year[ 'mid-1970s' ] = 'CD';
+year[ 'mid-1960s' ] = 'CD';
+year[ 'mid-1950s' ] = 'CD';
+year[ 'mid-1940s' ] = 'CD';
+year[ 'mid-1930s' ] = 'CD';
+year[ 'mid-1920s' ] = 'CD';
+year[ 'mid-1910s' ] = 'CD';
+
+// ### posTagger
+/**
+ *
+ * Creates an instance of {@link Tagger}.
+ *
+ * @return {Tagger} object conatining set of API methods for pos-tagging.
+ * @example
+ * // Load wink tokenizer.
+ * var tagger = require( 'wink-pos-tagger' );
+ * // Create your instance of wink tokenizer.
+ * var myTagger = posTagger();
+*/
+var posTagger = function ( ) {
+
+  /**
+  * @classdesc Tagger class
+  * @class Tagger
+  * @hideconstructor
+  */
+  var methods = Object.create( null );
+
+  // ### updateLexicon
+  /**
+   *
+   * Updates the internal lexicon using the input `lexicon`. If a word/pos pair
+   * is found in the internal lexicon then it's value is updated with the new pos;
+   * otherwise it added.
+   *
+   * @method Tagger#updateLexicon
+   * @param {object} lexicon containing **`word/pos`** pairs to be added to or
+   * replaced in the existing lexicon. The `pos` should be an array containing
+   * pos tags, with the first one as the most frequently used POS. The `word` is
+   * normalized before updating the internal lexicon.
+   * @return {undefined} Nothing!
+   * @throws {Error} if `lexicon` is not a valid JS object.
+   * @example
+   * myTagger.updateLexicon( { Obama: [ 'NNP' ] } );
+  */
+  var updateLexicon = function ( lexicon ) {
+    if ( !helpers.validate.isObject( lexicon ) ) {
+      throw Error( 'wink-pos-tagger/updateLexicon: lexicon must be an object, instead found: ' + JSON.stringify( lexicon ) );
+    }
+    // Update winkLexicon but with **normalized** key.
+    for ( var key in lexicon ) winkLexicon[ normalize( key ) ] = lexicon[ key ]; // eslint-disable-line guard-for-in
+  }; // updateLexicon()
+
+  // ### defineConfig
+  /**
+   *
+   * This API has no effect. It has been maintained for compatibility purpose.
+   * The `wink-tokenizer` will now always add **lemma** and **normal** forms.
+   * Note, lemmas are added only for **nouns** (excluding proper noun), **verbs** and
+   * **adjectives**.
+   *
+   * @method Tagger#defineConfig
+   * @return {object} always as `{ lemma: true, normal: true }`.
+   * @example
+   * // There will not be any effect:
+   * var myTagger.defineConfig( { lemma: false } );
+   * // -> { lemma: true, normal: true }
+  */
+  var defineConfig = function ( ) {
+    // Return a copy of configuration object.
+    return ( JSON.parse( JSON.stringify( { lemma: true, normal: true } ) ) );
+  }; // defineConfig()
+
+  // ### lemmatize
+  /**
+   *
+   * Performs lemmatization; also applies NNP transformation rules for captitalized
+   * nouns and adjectives and CD rule for years.
+   *
+   * @method Tagger#lemmatize
+   * @param {object[]} tokens to be lemmatized.
+   * @return {object[]} lemmatized tokens.
+   * @private
+  */
+  var lemmatize = function ( tokens ) {
+    var t, v0, w;
+    var lemma;
+    var tpos;
+    for ( let i = 0, imax = tokens.length; i &lt; imax; i += 1 ) {
+      t = tokens[ i ];
+      w = t.normal;
+      v0 = t.value[ 0 ];
+      tpos = year[ w ];
+      if ( tpos ) t.pos = 'CD';
+      // First handle exceptions arising out of contractions.
+      lemma = lemmaExceptions[ w ];
+      if ( lemma ) {
+        t.lemma = lemma;
+      } else {
+        // Otherwise use lemmatizer.
+        switch ( t.pos[ 0 ] ) {
+          case 'J':
+            if ( ( v0 >= capA ) &amp;&amp; ( v0 &lt;= capZ ) ) {
+              t.lemma = w;
+              t.pos = 'NNP';
+            } else {
+              t.lemma = ( t.pos.length > 2 ) ? lemmatizeJJX( w ) : w;
+            }
+            break;
+          case 'V':
+            t.lemma = ( t.pos.length > 2 ) ?
+                        ( ( t.normal === '\'s') ? 'be' : lemmatizeVBX( w ) ) :
+                        w;
+            break;
+          case 'N':
+            if ( ( v0 >= capA ) &amp;&amp; ( v0 &lt;= capZ ) ) {
+              t.lemma = w;
+              t.pos = 'NNP';
+            } else {
+              // No lemmatization of NNPs please!
+              t.lemma = ( t.pos !== 'NNP' &amp;&amp; t.pos.length > 2 ) ? lemmatizeNNX( w ) : w;
+            }
+            break;
+          case 'M':
+            t.lemma = lemmatizeVBX( w );
+            break;
+          default:
+            // Do nothing!
+        } // swtich
+      } // if
+    }
+
+    return tokens;
+  }; // lemmatize()
+
+  // ### tag
+  /**
+   *
+   * Tags the input **`tokens`** with their **pos**. It has another alias – **`tagTokens()`**.
+   *
+   * *In order to pos tag a sentence directly, use
+   * [`tagSentence`](http://winkjs.org/wink-pos-tagger/Tagger.html#tagSentence)
+   * API instead.*
+   *
+   * @method Tagger#tag
+   * @param {object[]} tokens to be pos tagged. They are array of objects and
+   * must follow the [**`wink-tokenizer`**](http://winkjs.org/wink-tokenizer/)
+   * standard.
+   * @return {object[]} pos tagged `tokens`.
+   * @example
+   * // Get `tokenizer` method from the instance of `wink-tokenizer`.
+   * var tokenize = require( 'wink-tokenizer' )().tokenize;
+   * // Tag the tokenized sentence.
+   * myTagger.tag( tokenize( 'I ate the entire pizza as I was feeling hungry.' ) );
+   * // -> [ { value: 'I', tag: 'word', normal: 'i', pos: 'PRP' },
+   * //      { value: 'ate', tag: 'word', normal: 'ate', pos: 'VBD', lemma: 'eat' },
+   * //      { value: 'the', tag: 'word', normal: 'the', pos: 'DT' },
+   * //      { value: 'entire', tag: 'word', normal: 'entire', pos: 'JJ', lemma: 'entire' },
+   * //      { value: 'pizza', tag: 'word', normal: 'pizza', pos: 'NN', lemma: 'pizza' },
+   * //      { value: 'as', tag: 'word', normal: 'as', pos: 'IN' },
+   * //      { value: 'I', tag: 'word', normal: 'i', pos: 'PRP' },
+   * //      { value: 'was', tag: 'word', normal: 'was', pos: 'VBD', lemma: 'be' },
+   * //      { value: 'feeling', tag: 'word', normal: 'feeling', pos: 'VBG', lemma: 'feel' },
+   * //      { value: 'hungry', tag: 'word', normal: 'hungry', pos: 'JJ', lemma: 'hungry' },
+   * //      { value: '.', tag: 'punctuation', normal: '.', pos: '.' } ]
+  */
+  var tag = function ( tokens ) {
+    // Array of "array each possible pos" for each token.
+    var poses = [];
+    // Temp token &amp; word.
+    var t;
+    for ( let i = 0, imax = tokens.length; i &lt; imax; i += 1 ) {
+      t = tokens[ i ];
+      // Normalize, if configuration demands it!
+      t.normal = normalize( t.value );
+      poses.push( unigramPOSTagger( t, winkLexicon ) );
+    }
+    applyContextRules( tokens, poses );
+    // Lemmatize, if configuration demands...
+    lemmatize( tokens );
+    return tokens;
+  }; // tagTokens();
+
+  // ### tagRawTokens
+  /**
+   *
+   * Tags the **`raw tokens`** with their **pos**. Note, it only categorizes each
+   * token in to one of the following 3-categories (a) word, or (b) punctuation,
+   * or (c) number.
+   *
+   * *In order to pos tag a sentence directly, use
+   * [`tagSentence`](http://winkjs.org/wink-pos-tagger/Tagger.html#tagSentence)
+   * API instead.*
+   *
+   * @method Tagger#tagRawTokens
+   * @param {string[]} rawTokens to be pos tagged. They are simple array of string.
+   * @return {object[]} pos tagged `tokens`.
+   * @example
+   * var rawTokens = [ 'I', 'ate', 'the', 'entire', 'pizza', 'as', 'I', 'was', 'feeling', 'hungry', '.' ];
+   * // Tag the raw tokens.
+   * myTagger.tagRawTokens( rawTokens );
+   * // -> [ { value: 'I', tag: 'word', normal: 'i', pos: 'PRP' },
+   * //      { value: 'ate', tag: 'word', normal: 'ate', pos: 'VBD', lemma: 'eat' },
+   * //      { value: 'the', tag: 'word', normal: 'the', pos: 'DT' },
+   * //      { value: 'entire', tag: 'word', normal: 'entire', pos: 'JJ', lemma: 'entire' },
+   * //      { value: 'pizza', tag: 'word', normal: 'pizza', pos: 'NN', lemma: 'pizza' },
+   * //      { value: 'as', tag: 'word', normal: 'as', pos: 'IN' },
+   * //      { value: 'I', tag: 'word', normal: 'i', pos: 'PRP' },
+   * //      { value: 'was', tag: 'word', normal: 'was', pos: 'VBD', lemma: 'be' },
+   * //      { value: 'feeling', tag: 'word', normal: 'feeling', pos: 'VBG', lemma: 'feel' },
+   * //      { value: 'hungry', tag: 'word', normal: 'hungry', pos: 'JJ', lemma: 'hungry' },
+   * //      { value: '.', tag: 'punctuation', normal: '.', pos: '.' } ]
+  */
+  var tagRawTokens = function ( rawTokens ) {
+    // Will contain tokens transformed into wink format tokens
+    var wt = [];
+    var t;
+    for ( var i = 0, imax = rawTokens.length; i &lt; imax; i += 1 ) {
+      t = rawTokens[ i ];
+      if ( rgxNumber.test( t ) ) {
+        wt.push( { value: t, tag: 'number' } );
+      } else if ( rgxPunctuation.test( t ) ) {
+        wt.push( { value: t, tag: 'punctuation' } );
+      } else wt.push( { value: t, tag: 'word' } );
+    }
+
+    return tag( wt );
+  }; // tagRawTokens()
+
+  // ### tagSentence
+  /**
+   *
+   * Tags the input `sentence` with their **pos**.
+   *
+   * @method Tagger#tagSentence
+   * @param {string} sentence to be pos tagged.
+   * @return {object[]} pos tagged `tokens.`
+   * @throws {Error} if `sentence` is not a valid string.
+   * @example
+   * myTagger.tagSentence( 'A bear just crossed the road.' );
+   * // -> [ { value: 'A', tag: 'word', normal: 'a', pos: 'DT' },
+   * //      { value: 'bear', tag: 'word', normal: 'bear', pos: 'NN', lemma: 'bear' },
+   * //      { value: 'just', tag: 'word', normal: 'just', pos: 'RB' },
+   * //      { value: 'crossed', tag: 'word', normal: 'crossed', pos: 'VBD', lemma: 'cross' },
+   * //      { value: 'the', tag: 'word', normal: 'the', pos: 'DT' },
+   * //      { value: 'road', tag: 'word', normal: 'road', pos: 'NN', lemma: 'road' },
+   * //      { value: '.', tag: 'punctuation', normal: '.', pos: '.' } ]
+   * //
+   * //
+   * myTagger.tagSentence( 'I will bear all the expenses.' );
+   * // -> [ { value: 'I', tag: 'word', normal: 'i', pos: 'PRP' },
+   * //      { value: 'will', tag: 'word', normal: 'will', pos: 'MD', lemma: 'will' },
+   * //      { value: 'bear', tag: 'word', normal: 'bear', pos: 'VB', lemma: 'bear' },
+   * //      { value: 'all', tag: 'word', normal: 'all', pos: 'PDT' },
+   * //      { value: 'the', tag: 'word', normal: 'the', pos: 'DT' },
+   * //      { value: 'expenses', tag: 'word', normal: 'expenses', pos: 'NNS', lemma: 'expense' },
+   * //      { value: '.', tag: 'punctuation', normal: '.', pos: '.' } ]
+  */
+  var tagSentence = function ( sentence ) {
+    if ( typeof sentence !== 'string' ) {
+      throw Error( 'wink-pos-tagger: input sentence must be a string, instead found: ' + typeof sentence );
+    }
+    return tag( tokenize( sentence ) );
+  }; // tagSentence()
+
+  methods.updateLexicon = updateLexicon;
+  methods.tag = tag;
+  methods.tagTokens = tag;
+  methods.tagRawTokens = tagRawTokens;
+  methods.tagSentence = tagSentence;
+  methods.defineConfig = defineConfig;
+
+  return methods;
+}; // posTagger()
+
+module.exports = posTagger;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+        
+    </div>
+  </div>
+
+  <nav  id="side-nav">
+      
+      <h2><a href="index.html">Summary</a></h2><h2><a href="https://github.com/winkjs/wink-pos-tagger" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="Tagger.html">Tagger</a><ul class='methods'><li data-type='method'><a href="Tagger.html#defineConfig">defineConfig</a></li><li data-type='method'><a href="Tagger.html#tag">tag</a></li><li data-type='method'><a href="Tagger.html#tagRawTokens">tagRawTokens</a></li><li data-type='method'><a href="Tagger.html#tagSentence">tagSentence</a></li><li data-type='method'><a href="Tagger.html#updateLexicon">updateLexicon</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#posTagger">posTagger</a></li></ul>
+  </nav>
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Aug 12 2019 09:56:01 GMT+0530 (IST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+<script src="https://embed.runkit.com"></script>
+<script type="text/javascript">
+  var els = document.getElementsByClassName("runkit");
+
+  Array.prototype.forEach.call(els, function(el) {
+    // Do stuff here
+    var source = el.innerHTML;
+    el.innerHTML = '';
+    var n = RunKit.createNotebook( {
+      element: el,
+      source: source
+    } );
+  });
+</script>
+</body>
+</html>

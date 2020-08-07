@@ -1,0 +1,55 @@
+{
+  "name": "wink-pos-tagger",
+  "version": "2.2.2",
+  "description": "English Part-of-speech (POS) tagger",
+  "keywords": [
+    "POS",
+    "Tagger",
+    "Part-of-speech",
+    "Tags",
+    "Tagging",
+    "NLP",
+    "Natural Language Processing",
+    "wink"
+  ],
+  "main": "src/wink-pos-tagger.js",
+  "scripts": {
+    "pretest": "npm run lint && npm run docs",
+    "test": "istanbul cover _mocha ./test/",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "sourcedocs": "docker -i src -o ./sourcedocs --sidebar no",
+    "docs": "jsdoc src/*.js -c .jsdoc.json",
+    "lint": "eslint ./src/*.js ./test/*.js ./runkit/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winkjs/wink-pos-tagger.git"
+  },
+  "author": "Sanjaya Kumar Saxena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/winkjs/wink-pos-tagger/issues"
+  },
+  "homepage": "http://winkjs.org/",
+  "devDependencies": {
+    "acorn": "^6.1.1",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "docdash": "github:winkjs/docdash",
+    "docker": "^1.0.0",
+    "eslint": "^5.16.0",
+    "har-validator": "^5.1.3",
+    "istanbul": "^0.4.5",
+    "jsdoc": "^3.6.3",
+    "mocha": "^6.1.4",
+    "mocha-lcov-reporter": "^1.3.0"
+  },
+  "runkitExampleFilename": "./runkit/example.js",
+  "dependencies": {
+    "wink-helpers": "^2.0.0",
+    "wink-lemmatizer": "^3.0.1",
+    "wink-lexicon": "^2.1.1",
+    "wink-porter2-stemmer": "^2.0.1",
+    "wink-tokenizer": "^5.2.1"
+  }
+}
